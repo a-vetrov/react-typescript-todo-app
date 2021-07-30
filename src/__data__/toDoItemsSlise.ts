@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import {RootState} from "./store";
 
 export interface IToDoItem {
     id: number
@@ -33,6 +32,13 @@ const initialState: ToDoItems = {
     maxId: 4
 }
 
+export const getItemById = (state: ToDoItems, id: number): IToDoItem | undefined => state.items.find(item => item.id === id)
+
+export const getItemsSorted = (state: ToDoItems): IToDoItem[] => [
+    ...state.items.filter(item => !item.done),
+    ...state.items.filter(item => item.done),
+]
+
 export const toDoItemsSlice = createSlice({
     name: 'items',
     initialState,
@@ -42,11 +48,21 @@ export const toDoItemsSlice = createSlice({
             state.items.push(item)
             state.maxId ++
         },
+
+        removeItem: (state: ToDoItems, action: PayloadAction<number>) => {
+            state.items = state.items.filter(item => item.id !== action.payload)
+        },
+
+        actItem: (state: ToDoItems, action: PayloadAction<number>) => {
+            const item = getItemById(state, action.payload)
+            if (item) {
+                item.done = !item.done
+            }
+        },
+
     },
 })
 
-export const { addItem } = toDoItemsSlice.actions;
-
-export const getItemById = (state: RootState, id: number): IToDoItem | undefined => state.toDo.items.find(item => item.id === id)
+export const { addItem, removeItem, actItem } = toDoItemsSlice.actions;
 
 export default toDoItemsSlice.reducer;

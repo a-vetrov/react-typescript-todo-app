@@ -3,9 +3,10 @@ import style from './App.module.css'
 import {useAppSelector} from "./__data__/hooks";
 import ToDoItem from "./components/item/ToDoItem";
 import AddControl from "./components/add-control/AddControl";
+import {getItemsSorted} from "./__data__/toDoItemsSlise";
 
 function App() {
-    const items = useAppSelector((state) => state.toDo.items)
+    const items = useAppSelector((state) => getItemsSorted(state.toDo))
 
     return (
         <div className={style.container}>
