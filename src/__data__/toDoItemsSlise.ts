@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {AppDispatch} from "./store";
 
 export interface IToDoItem {
     id: number
@@ -64,5 +65,11 @@ export const toDoItemsSlice = createSlice({
 })
 
 export const { addItem, removeItem, actItem } = toDoItemsSlice.actions;
+
+export const addItemAsync = (title: string) => (dispatch: AppDispatch) => {
+    setTimeout(() => {
+        dispatch(addItem(title));
+    }, 1000);
+};
 
 export default toDoItemsSlice.reducer;

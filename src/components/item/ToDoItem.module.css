@@ -7,6 +7,10 @@
     align-items: center;
 }
 
+.containerDone {
+    border-color: lightgrey;
+}
+
 .title {
     flex-grow: 1;
 }
