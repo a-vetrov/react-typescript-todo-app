@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {RootState} from "./store";
 
-interface IToDoItem {
+export interface IToDoItem {
     id: number
     title: string
     done: boolean
@@ -9,6 +9,7 @@ interface IToDoItem {
 
 type ToDoItems = {
     items: IToDoItem[]
+    maxId: number
 }
 
 const initialState: ToDoItems = {
@@ -29,20 +30,23 @@ const initialState: ToDoItems = {
             done: false,
         },
     ],
+    maxId: 4
 }
 
 export const toDoItemsSlice = createSlice({
     name: 'items',
     initialState,
     reducers: {
-        add: (state, action: PayloadAction<IToDoItem>) => {
-            state.items.push(action.payload)
+        addItem: (state: ToDoItems, action: PayloadAction<string>) => {
+            const item: IToDoItem = {id: state.maxId, title: action.payload, done: false}
+            state.items.push(item)
+            state.maxId ++
         },
     },
 })
 
-export const { add } = toDoItemsSlice.actions;
+export const { addItem } = toDoItemsSlice.actions;
 
-export const getItemById = (state: RootState, id: number) => state
+export const getItemById = (state: RootState, id: number): IToDoItem | undefined => state.toDo.items.find(item => item.id === id)
 
 export default toDoItemsSlice.reducer;
