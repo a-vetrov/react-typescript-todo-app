@@ -24,8 +24,8 @@ const ToDoItem = ({id, title, done}: IToDoItem) => {
             <div className={classnames(style.title, {[style.titleDone]: done})}>
                 {title}
             </div>
-            <Button shape='circle' icon={ <CloseCircleTwoTone twoToneColor='red'/>} type={'text'} className={style.button} onClick={handleRemoveClick}/>
-            <Button shape='circle' icon={ <CheckCircleTwoTone />} type={'text'} className={style.button} onClick={handleCheckClick}/>
+            <Button shape='circle' icon={ <CloseCircleTwoTone twoToneColor='red'/>} type={'text'} className={style.button} onClick={handleRemoveClick} title='Delete item'/>
+            <Button shape='circle' icon={ <CheckCircleTwoTone />} type={'text'} className={style.button} onClick={handleCheckClick} title='Check item'/>
 
         </div>
     )

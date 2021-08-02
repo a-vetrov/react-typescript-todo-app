@@ -3,7 +3,7 @@ import { Button, Input } from 'antd';
 
 import style from './AddControl.module.css'
 import { useAppDispatch } from "../../__data__/hooks";
-import { addItemAsync } from '../../__data__/toDoItemsSlise';
+import { addItem } from '../../__data__/toDoItemsSlise';
 
 const AddControl = () => {
     const [text, setText] = useState('')
@@ -14,7 +14,7 @@ const AddControl = () => {
     }
 
     const onClickHandler = () => {
-        dispatch(addItemAsync(text))
+        dispatch(addItem(text))
         setText('')
     }
 
