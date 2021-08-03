@@ -76,8 +76,6 @@ test('Delete item', () => {
   }
 
   render(<App />, initialState);
-  expect(screen.getByText('Item1')).toBeInTheDocument()
-  expect(screen.getByText('Item2')).toBeInTheDocument()
 
   const item = screen.getByText('Item1').closest('.container') as HTMLElement
   const deleteButton = within(item).getByTitle('Delete item')
@@ -87,3 +85,31 @@ test('Delete item', () => {
   expect(item).not.toBeInTheDocument()
   expect(screen.getByText('Item2')).toBeInTheDocument()
 });
+
+test('Check item', () => {
+  const initialState = {
+    toDo: {
+      items: [
+        {
+          id: 1,
+          title: 'Item1',
+          done: false
+        },
+      ],
+      maxId: 2
+    }
+  }
+
+  render(<App />, initialState);
+
+  const item = screen.getByText('Item1')
+  const container = item.closest('.container') as HTMLElement
+  const checkButton = within(container).getByTitle('Check item')
+  expect(checkButton).toBeInTheDocument()
+
+  fireEvent.click(checkButton)
+
+  expect(item).toHaveClass('titleDone')
+  expect(container).toHaveClass('containerDone')
+});
+
